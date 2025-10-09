@@ -1,0 +1,47 @@
+﻿@model IEnumerable<NotesApplication.Models.Note>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Notes</h2>
+<a class="btn btn-primary mb-3" asp-action="Create">Create New Note</a>
+
+<table class="table table-bordered">
+    <thead class="table-right">
+
+
+              <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var note in Model)
+        {
+
+            string rowClass= note.Priority switch
+            {
+                NotesApplication.Models.PriorityLevel.High => "table-danger",
+                NotesApplication.Models.PriorityLevel.Medium => "table-warning",
+                NotesApplication.Models.PriorityLevel.Low => "table-success",
+                _ => ""
+            };
+            <tr class="@rowClass">
+
+                <td>@note.Title</td>
+                <td>@note.Description</td>
+                <td>@note.Priority</td>
+                <td>@note.CreatedAt</td>
+                <td>
+                    <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@note.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@note.Id">delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    </tbody>
+
+</table>
