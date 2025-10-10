@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
 using NotesApplication.Data;
-using System;
+using Microsoft.EntityFrameworkCore;
+using NotesApplication.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +9,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
-
-//builder.Services.AddScoped<INoteRepository, NoteRepository>();
-//builder.Services.AddScoped<NoteService>();
+builder.Services.AddScoped<NotesApplication.Repositories.INoteRepository, NotesApplication.Repositories.NoteRepository>();
+builder.Services.AddScoped<NotesApplication.Services.NoteService>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 

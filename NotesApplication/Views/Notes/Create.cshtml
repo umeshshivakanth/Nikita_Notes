@@ -1,10 +1,10 @@
-﻿@model NotesApplication.Models.Note
+﻿@model NotesApplication.ViewModel.NoteViewModel
 @{
     ViewData["Title"] = "Create Note";
 }
 <h2>Create Note</h2>
 
-<form asp-action="Create">
+<form asp-action="Create" method="post">
     <div class="mb-3">
         <label asp-for="Title" class="form-label"></label>
         <input asp-for="Title" class="form-control" />
@@ -19,11 +19,10 @@
 
     <div class="mb-3">
         <label asp-for="Priority" class="form-label"></label>
-        <select asp-for="Priority" class="form-select">
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
+        <select asp-for="Priority" class="form-select" asp-items="Html.GetEnumSelectList<NotesApplication.Models.PriorityLevel>()">
+            <option value="">-- Select Priority --</option>
         </select>
+        <span asp-validation-for="Priority" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-success">Save</button>
