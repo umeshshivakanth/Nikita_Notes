@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BasicNotesApp.Web.ViewModel.NoteViewModel>
+
+@{
+    ViewData["Title"] = "Notes";
+}
+
+
+<a asp-action="Create" class="btn btn-primary mb-2">Create Note</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Priority</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var note in Model)
+        {
+            var rowClass = note.Priority switch
+            {
+                BasicNotesApp.Domain.Enums.PriorityLevel.Low => "table-success",
+                BasicNotesApp.Domain.Enums.PriorityLevel.Medium => "table-warning",
+                BasicNotesApp.Domain.Enums.PriorityLevel.High => "table-danger",
+                _ => ""
+            };
+            <tr class="@rowClass">
+                <td>@note.Title</td>
+                <td>@note.Content</td>
+                <td>@note.Priority</td>
+                <td>@note.CategoryName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@note.Id" class="btn btn-sm btn-info">Edit</a>
+                    <form asp-action="DeleteConfirmed" asp-route-id="@note.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Are you sure you want to delete this note?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

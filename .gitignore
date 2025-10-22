@@ -1,2 +1,9 @@
-/UnitTest/bin
-/UnitTest/obj
+/.vs
+/Application/bin
+/Application/obj
+/Domain/obj
+/Infrastructure/obj
+/Web/bin
+/Web/obj
+/Infrastructure/bin
+/Domain/bin
