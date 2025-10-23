@@ -2,7 +2,8 @@
 using Application.Factories;
 using Application.Interfaces;
 using AutoMapper;
-
+using Domain.Entities;
+using System.Collections.Generic;
 
 namespace Application.Services
 {
@@ -31,11 +32,10 @@ namespace Application.Services
 
         public void CreateNote(NoteDto noteDto)
         {
-            // Use factory to create the Note entity
+            
             var note = NoteFactory.Create(
                 title: noteDto.Title,
                 content: noteDto.Content,
-                categoryId: noteDto.CategoryId,
                 priority: noteDto.Priority
             );
 
@@ -50,7 +50,6 @@ namespace Application.Services
             note.Title = noteDto.Title;
             note.Content = noteDto.Content;
             note.Priority = noteDto.Priority;
-            note.CategoryId = noteDto.CategoryId;
 
             _noteRepository.Update(note);
         }

@@ -9,13 +9,11 @@ namespace Web.Mappings
 
         public MappingProfile()
         {
-            // ViewModel -> DTO (for Create/Edit)
+        
             CreateMap<NoteViewModel, NoteDto>();
 
-            // DTO -> ViewModel (for display in Index/Edit)
-            CreateMap<NoteDto, NoteViewModel>()
-                .ForMember(dest => dest.CategoryName,
-                           opt => opt.MapFrom(src => src.CategoryName));
+          
+            CreateMap<NoteDto, NoteViewModel>();
         }
     }
 }

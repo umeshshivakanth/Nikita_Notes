@@ -10,13 +10,12 @@ namespace Application.Factories
 {
     public class NoteFactory
     {
-        public static Note Create(string title, string content, int categoryId, PriorityLevel priority = PriorityLevel.Medium)
+        public static Note Create(string title, string content, PriorityLevel priority = PriorityLevel.Medium)
         {
             return new Note
             {
                 Title = title,
                 Content = content,
-                CategoryId = categoryId,
                 Priority = priority,
                 CreatedAt = DateTime.UtcNow
             };

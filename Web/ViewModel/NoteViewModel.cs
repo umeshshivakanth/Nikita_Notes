@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BasicNotesApp.Web.ViewModel
 {
+
     public class NoteViewModel
     {
-
         public int Id { get; set; }
 
         [Required]
@@ -17,10 +17,5 @@ namespace BasicNotesApp.Web.ViewModel
 
         [Required]
         public PriorityLevel Priority { get; set; }
-
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
-
-        public string? CategoryName { get; set; }
     }
 }

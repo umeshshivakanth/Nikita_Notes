@@ -1,21 +1,13 @@
-﻿using Application.DTO;
-using Application.Interfaces;
-using AutoMapper;
+﻿using Application.Interfaces;
 using Domain.Entities;
 using Infrastructure.Data;
-using Application.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public  class NoteRepository : INoteRepository
+    public class NoteRepository : INoteRepository
     {
-
         private readonly NotesDbContext _context;
 
         public NoteRepository(NotesDbContext context)
@@ -25,15 +17,14 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<Note> GetAll()
         {
-            return _context.Notes.Include(n => n.Category)
-                                 .OrderByDescending(n => n.CreatedAt)
-                                 .ToList();
+            return _context.Notes
+                           .OrderByDescending(n => n.CreatedAt)
+                           .ToList();
         }
 
         public Note GetById(int id)
         {
-            return _context.Notes.Include(n => n.Category)
-                                 .FirstOrDefault(n => n.Id == id);
+            return _context.Notes.FirstOrDefault(n => n.Id == id);
         }
 
         public void Add(Note note)

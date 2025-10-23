@@ -1,9 +1,5 @@
 ﻿using BasicNotesApp.Domain.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
@@ -13,8 +9,6 @@ namespace Domain.Entities
         public string Title { get; set; }
         public string Content { get; set; }
         public PriorityLevel Priority { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public int CategoryId { get; set; }       // Foreign key
-        public Category Category { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
