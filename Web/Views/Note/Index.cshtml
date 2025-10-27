@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<BasicNotesApp.Web.ViewModel.NoteViewModel>
-@using BasicNotesApp.Domain.Enums
+@using Domain.Entities;
 
 
 
@@ -29,15 +29,15 @@
             <tr class="@rowClass" data-id="@note.Id">
                 <td>
                     <span class="display-mode">@note.Title</span>
-                    <input class="edit-mode form-control" type="text" value="@note.Title" style="display:none;" />
+                    <input class="edit-mode form-control" type="text" value="@note.Title"  />
                 </td>
                 <td>
                     <span class="display-mode">@note.Content</span>
-                    <input class="edit-mode form-control" type="text" value="@note.Content" style="display:none;" />
+                    <input class="edit-mode form-control" type="text" value="@note.Content"  />
                 </td>
                 <td>
                     <span class="display-mode">@note.Priority</span>
-                    <select class="edit-mode form-control edit-priority" style="display:none;">
+                    <select class="edit-mode form-control edit-priority" >
                         @Html.Raw(
                                  string.Join("", Enum.GetValues(typeof(PriorityLevel))
                                  .Cast<PriorityLevel>()
@@ -48,8 +48,8 @@
                 </td>
                 <td>
                     <button class="btn btn-sm btn-info display-mode" onclick="editRow(this)">Edit</button>
-                    <button class="btn btn-sm btn-success edit-mode" onclick="saveRow(this)" style="display:none;">Save</button>
-                    <button class="btn btn-sm btn-secondary edit-mode" onclick="cancelRow(this)" style="display:none;">Cancel</button>
+                    <button class="btn btn-sm btn-success edit-mode" onclick="saveRow(this)" >Save</button>
+                    <button class="btn btn-sm btn-secondary edit-mode" onclick="cancelRow(this)">Cancel</button>
 
                     <form asp-action="DeleteConfirmed" asp-route-id="@note.Id" method="post" class="form-inline">
                         <button type="submit" class="btn btn-sm btn-danger display-mode"
@@ -64,45 +64,5 @@
 </table>
 
 @section Scripts {
-    <script>
-        function editRow(button) {
-            const row = button.closest('tr');
-            row.querySelectorAll('.display-mode').forEach(e => e.style.display = 'none');
-            row.querySelectorAll('.edit-mode').forEach(e => e.style.display = '');
-        }
-
-        function cancelRow(button) {
-            const row = button.closest('tr');
-            row.querySelectorAll('.display-mode').forEach(e => e.style.display = '');
-            row.querySelectorAll('.edit-mode').forEach(e => e.style.display = 'none');
-        }
-
-        async function saveRow(button) {
-            const row = button.closest('tr');
-            const tds = row.querySelectorAll('td');
-
-            const data = new URLSearchParams();
-            data.append('Id', row.dataset.id);
-            data.append('Title', tds[0].querySelector('input').value);
-            data.append('Content', tds[1].querySelector('input').value);
-            data.append('Priority', tds[2].querySelector('select').value);
-
-            try {
-                const response = await fetch('@Url.Action("EditAjax")', {
-                    method: 'POST',
-                    body: data,
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-                });
-
-                if (!response.ok) throw new Error('Network response was not ok');
-
-                // Refresh the page to show updated data
-                location.reload();
-            } catch (error) {
-                console.error('Error saving note:', error);
-                alert('Error saving note!');
-            }
-        }
-    </script>
+    <script src="~/js/Note.js"></script>
 }
-

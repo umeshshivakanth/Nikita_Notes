@@ -20,3 +20,7 @@ body {
 .form-inline {
     display: inline;
 }
+
+.edit-mode {
+    display: none;
+}

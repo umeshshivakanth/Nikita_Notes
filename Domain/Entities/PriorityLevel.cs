@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BasicNotesApp.Domain.Enums
+namespace Domain.Entities
 {
     public enum PriorityLevel
     {
-
         Low,
         Medium,
         High

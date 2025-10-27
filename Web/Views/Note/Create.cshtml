@@ -21,7 +21,7 @@
 
     <div class="form-group">
         <label asp-for="Priority"></label>
-        <select asp-for="Priority" class="form-control" asp-items="Html.GetEnumSelectList<BasicNotesApp.Domain.Enums.PriorityLevel>()"></select>
+        <select asp-for="Priority" class="form-control" asp-items="Html.GetEnumSelectList<Domain.Entities.PriorityLevel>()"></select>
         <span asp-validation-for="Priority" class="text-danger"></span>
     </div>
 

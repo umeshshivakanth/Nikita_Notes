@@ -1,4 +1,4 @@
-﻿using BasicNotesApp.Domain.Enums;
+﻿
 using System;
 
 namespace Domain.Entities
