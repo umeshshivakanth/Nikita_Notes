@@ -14,11 +14,25 @@ async function saveRow(button) {
     const row = button.closest('tr');
     const tds = row.querySelectorAll('td');
 
+    const title = tds[0].querySelector('input').value.trim();
+    const content = tds[1].querySelector('input').value.trim();
+    const priority = tds[2].querySelector('select').value;
+
+   
+    if (!title || !content || !priority) {
+        let message = "Please fill out the following fields:\n";
+        if (!title) message += "- Title\n";
+        if (!content) message += "- Content\n";
+        if (!priority) message += "- Priority\n";
+        alert(message);
+        return; 
+    }
+
     const data = new URLSearchParams();
     data.append('Id', row.dataset.id);
-    data.append('Title', tds[0].querySelector('input').value);
-    data.append('Content', tds[1].querySelector('input').value);
-    data.append('Priority', tds[2].querySelector('select').value);
+    data.append('Title', title);
+    data.append('Content', content);
+    data.append('Priority', priority);
 
     try {
         const response = await fetch('/Note/EditAjax', {
@@ -27,10 +41,10 @@ async function saveRow(button) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         });
 
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) throw new Error('Something went wrong');
 
-        // Refresh the page to show updated data
         location.reload();
+
     } catch (error) {
         console.error('Error saving note:', error);
         alert('Error saving note!');
